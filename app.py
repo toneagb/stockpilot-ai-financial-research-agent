@@ -75,9 +75,14 @@ if st.button("Generate Report"):
 
     try:
         news_items = stock.news[:5]
-        news_headlines = [
-            item.get("title", "No title") for item in news_items
-        ]
+        news_headlines = []
+        for item in news_items:
+            title = (
+                item.get("content", {}).get("title")
+                or item.get("title")
+                or "No title"
+            )
+            news_headlines.append(title)
     except Exception:
         news_headlines = []
 
